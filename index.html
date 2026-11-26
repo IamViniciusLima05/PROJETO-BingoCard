@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BingoCard | Cartelas e sorteador de bingo</title>
+  <meta name="description" content="Gere cartelas de bingo para imprimir, sorteie as bolas com narração em voz alta e confira as cartelas vencedoras pelo código.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rammetto+One&family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topo">
+    <h1 class="marca">BIN<span>GO!</span></h1>
+    <nav class="abas" role="tablist">
+      <button role="tab" data-aba="sorteio" aria-selected="true">🎱 Sorteio</button>
+      <button role="tab" data-aba="cartelas" aria-selected="false">🖨 Cartelas</button>
+      <button role="tab" data-aba="conferir" aria-selected="false">✅ Conferir</button>
+    </nav>
+  </header>
+
+  <main class="app">
+    <section id="aba-sorteio" class="aba">
+      <div class="globo-area">
+        <div class="bola-grande" id="bola" aria-live="assertive"><span class="letra" id="bola-letra">B</span><span class="num" id="bola-num">?</span></div>
+        <div class="ultimas" id="ultimas" aria-label="Últimas bolas"></div>
+        <div class="controles">
+          <button class="btn grande" id="sortear">Sortear bola</button>
+          <button class="btn ghost" id="auto" aria-pressed="false">▶ Automático</button>
+          <label class="vel">a cada <select id="intervalo"><option value="4">4 s</option><option value="6" selected>6 s</option><option value="10">10 s</option></select></label>
+          <label class="chk"><input type="checkbox" id="voz" checked> Narrar</label>
+        </div>
+        <p class="info" id="info">0 de 75 bolas sorteadas</p>
+      </div>
+      <div class="painel" id="painel" aria-label="Painel de números"></div>
+      <button class="link" id="reiniciar">Novo jogo</button>
+    </section>
+
+    <section id="aba-cartelas" class="aba" hidden>
+      <form class="config" id="form-cartelas">
+        <label>Título<input id="titulo" value="Bingo da Família" maxlength="30"></label>
+        <label>Quantidade<input id="qtd" type="number" min="1" max="60" value="8"></label>
+        <label>Por folha<select id="por-folha"><option value="1">1 (grande)</option><option value="2">2</option><option value="4" selected>4</option><option value="6">6</option></select></label>
+        <label>Cor<input type="color" id="cor" value="#e63946"></label>
+        <label>Prêmio (opcional)<input id="premio" placeholder="Ex.: Cesta de chocolates" maxlength="40"></label>
+        <button type="button" class="btn ghost" id="gerar">🔄 Gerar outras</button>
+        <button type="button" class="btn" id="imprimir">🖨 Imprimir</button>
+      </form>
+      <p class="dica">Cada cartela tem um <b>código</b> no rodapé. Use a aba Conferir para checar se ela fez bingo.</p>
+      <div class="cartelas" id="cartelas"></div>
+    </section>
+
+    <section id="aba-conferir" class="aba" hidden>
+      <form class="conferir" id="form-conferir" autocomplete="off">
+        <label>Código da cartela<input id="codigo" placeholder="Ex.: K7Q2" maxlength="6" style="text-transform:uppercase"></label>
+        <button class="btn">Conferir</button>
+      </form>
+      <div id="resultado"></div>
+    </section>
+  </main>
+  <div class="impressao" id="impressao" aria-hidden="true"></div>
+  <div class="toast" id="toast" role="status" hidden></div>
+  <script src="js/script.js"></script>
+</body>
+</html>
